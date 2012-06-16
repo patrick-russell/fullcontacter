@@ -49,4 +49,4 @@ Copyright
 ---------
 Copyright (c) 2012 Patrick Russell
 
-See [LICENSE]() for details.
+See [LICENSE](https://github.com/patrick-russell/fullcontact-api-python/blob/master/LICENSE.md) for details.

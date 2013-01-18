@@ -6,7 +6,7 @@ def readme():
         return f.read()
 
 setup(name='fullcontacter',
-      version='0.5',
+      version='0.2',
       description="Library for interacting with Fullcontact's APIs.",
       long_description=readme(),
       classifiers=[

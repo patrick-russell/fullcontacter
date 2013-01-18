@@ -1,5 +1,5 @@
 #API for Fullcontact version 2
-#module version 0.5
+#Fullcontacter version 0.2
 
 from urllib2 import urlopen, Request, HTTPError
 from urllib import urlencode
@@ -11,10 +11,10 @@ API_VERSION = 'v2'
 END_POINT = 'https://api.fullcontact.com/{0}/'.format(API_VERSION)
 
 CLIENT_VERSION = '0.2'
-USER_AGENT = 'Python 2.7.3/Fullcontact Python module version{0}'.format(CLIENT_VERSION)
+USER_AGENT = 'Python 2.7/Fullcontacter Python module version{0}'.format(CLIENT_VERSION)
 
 #initialize logging.
-logging.basicConfig(filename='fullcontact.log', level=logging.INFO, format='%(asctime)s %(message)s')
+logging.basicConfig(filename='fullcontacter.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 
 class fullContactError():
@@ -30,7 +30,6 @@ class nameStats(object):
     def lookup_request(self, method, lkup={}):
         '''method to build the url, make the request, and dump the json to a dict'''
 
-        #ensure proper encoding for look up values
         params = {}
         for k, v in lkup.iteritems():
             params[k] = unicode(v).encode('utf-8')
@@ -38,7 +37,6 @@ class nameStats(object):
         params['apiKey'] = self.api_key
         data = urlencode(params)
 
-        #make the url,create the request and set user agent
         lookup_url = "{0}{1}?{2}".format(END_POINT, method, data)
         lookup_req = Request(url=lookup_url, headers={'User-agent': USER_AGENT})
 
@@ -69,7 +67,6 @@ class personLookup(object):
         '''method to build up the url, make the request, and, if using JSON dump
           the JSON to a dict valid lookup types are email,twitter,phone,facebookUsername'''
 
-        #ensure proper encoding for look up values
         params = {}
         for k, v in lkup.iteritems():
             params[k] = unicode(v).encode('utf-8')
@@ -77,7 +74,6 @@ class personLookup(object):
         params['apiKey'] = self.api_key
         data = urlencode(params)
 
-        #make the url,create the request and set user agent
         lookup_url = '{0}{1}?{2}'.format(END_POINT, method, data)
         lookup_req = Request(url=lookup_url, headers={'User-agent': USER_AGENT})
 

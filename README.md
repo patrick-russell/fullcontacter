@@ -7,8 +7,8 @@ Readme
 ------------
 You can find full documentation at [Fullcontact.com](http://www.fullcontact.com).
 
-Specifically:<br>
-[Name API docs](http://www.fullcontact.com/docs/?category=person)<br>
+Specifically:
+[Name API docs](http://www.fullcontact.com/docs/?category=person)
 [Person API docs](http://www.fullcontact.com/docs/?category=name)
 
 You will need a fullcontact API key to use this module. The name API is free, the person is not.

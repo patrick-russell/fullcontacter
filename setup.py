@@ -8,7 +8,7 @@ def readme():
 dependencies = ['requests']
 
 setup(name='fullcontacter',
-      version='0.2.2',
+      version='0.3',
       description="Library for interacting with Fullcontact's APIs.",
       long_description=readme(),
       classifiers=[

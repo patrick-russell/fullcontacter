@@ -2,7 +2,7 @@ Fullcontact Python module
 =========================
 
 A Python module for the `Fullcontact API`_ version 2.0 It has
-functionality for name stats API and person APIs (except vcard).
+functionality for name stats API and person APIs(except vcard format).
 
 Readme
 ------
@@ -63,14 +63,14 @@ Usage Examples
 TODO
 ----
 
-Test coverage. Ditch urllib2 for Requests. Implement a better API and
-include more of the lookup options, including account status.
+support vcard
+Test coverage.
+Implement a better API and include more of the lookup options, including account status.
 
 Random
 ------
 
-First attempt at releasing something to the public. I’m pretty new to
-this, tips, ideas, criticism, all welcome.
+First attempt at releasing something to the public. I’m pretty new to this, tips, ideas, criticism, all welcome.
 
 Copyright
 ---------
@@ -83,4 +83,4 @@ See `LICENSE`_ for details.
 .. _Fullcontact.com: http://www.fullcontact.com
 .. _Name API docs: http://www.fullcontact.com/docs/?category=person
 .. _Person API docs: http://www.fullcontact.com/docs/?category=name
-.. _LICENSE: https://github.com/patrick-russell/fullcontact-api-python/blob/master/LICENSE.md
+.. _LICENSE: https://github.com/patrick-russell/fullcontacter/blob/master/LICENSE.md

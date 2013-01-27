@@ -5,6 +5,8 @@ def readme():
     with open('README.rst') as f:
         return f.read()
 
+dependencies = ['requests']
+
 setup(name='fullcontacter',
       version='0.2.2',
       description="Library for interacting with Fullcontact's APIs.",
@@ -20,4 +22,5 @@ setup(name='fullcontacter',
       author_email='prussell@gmail.com',
       license='MIT',
       packages=['fullcontacter'],
+      install_requires=dependencies,
       zip_safe=False)

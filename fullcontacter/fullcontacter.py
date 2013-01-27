@@ -1,100 +1,66 @@
-#API for Fullcontact version 2
-#Fullcontacter version 0.2
+'''
+Fullcontacter: A wrapper for the excellent and helpful Fullcontact.com APIs
+Fullcontacter version 0.3
 
-from urllib2 import urlopen, Request, HTTPError
-from urllib import urlencode
-from json import load
+Provides the exposed API for the Fullcontacter module. This should be considered alpha.
+Future versions of this API will be different and more featureful.
+
+'''
+
+from lookup import lookup_request
 import logging
-
-#configuration
-API_VERSION = 'v2'
-END_POINT = 'https://api.fullcontact.com/{0}/'.format(API_VERSION)
-
-CLIENT_VERSION = '0.2'
-USER_AGENT = 'Python 2.7/Fullcontacter Python module version{0}'.format(CLIENT_VERSION)
 
 #initialize logging.
 logging.basicConfig(filename='fullcontacter.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 
-class fullContactError():
+class fullcontacterError():
     pass
 
 
-class nameStats(object):
-    '''look up first and last name via fullcontact's free name api'''
-
-    def __init__(self, api_key):
-        self.api_key = api_key
-
-    def lookup_request(self, method, lkup={}):
-        '''method to build the url, make the request, and dump the json to a dict'''
-
-        params = {}
-        for k, v in lkup.iteritems():
-            params[k] = unicode(v).encode('utf-8')
-
-        params['apiKey'] = self.api_key
-        data = urlencode(params)
-
-        lookup_url = "{0}{1}?{2}".format(END_POINT, method, data)
-        lookup_req = Request(url=lookup_url, headers={'User-agent': USER_AGENT})
-
-        logging.info('url created ' + lookup_req.get_full_url())
-        logging.info(str(lkup))
-
-        try:
-            lookup = urlopen(lookup_req)
-        except HTTPError, e:
-            logging.error(e.code)
-            raise fullContactError()
-        else:
-            name_data = load(lookup)
-            logging.info('status code = ' + str(name_data['status']) + ' ' + str(lkup))
-            return name_data
-
-    def lookitup(self, method='name/stats.json', fname='', lname=''):
-        return self.lookup_request(method, lkup={'givenName': fname, 'familyName': lname})
-
-
 class personLookup(object):
-    '''look up person by email/phone/twitter via fullcontact's paid person api'''
+    '''look up person by email/phone/twitter/facebook via fullcontact's paid person api'''
 
     def __init__(self, api_key):
         self.api_key = api_key
 
-    def lookup_request(self, method, lkup):
-        '''method to build up the url, make the request, and, if using JSON dump
-          the JSON to a dict valid lookup types are email,twitter,phone,facebookUsername'''
+    def lookitup(self, lookup_type, lookup_value, format='.json'):
+        '''
+          Valid lookup types are email,twitter,phone,facebookUsername
+          Phone numbers should be formatted +country code area code number
+          (ie +13035555555)
+        '''
 
-        params = {}
-        for k, v in lkup.iteritems():
-            params[k] = unicode(v).encode('utf-8')
-
-        params['apiKey'] = self.api_key
-        data = urlencode(params)
-
-        lookup_url = '{0}{1}?{2}'.format(END_POINT, method, data)
-        lookup_req = Request(url=lookup_url, headers={'User-agent': USER_AGENT})
-
-        logging.info('url created ' + lookup_req.get_full_url())
-        logging.info(str(lkup))
-
-        try:
-            lookup = urlopen(lookup_req)
-        except HTTPError, e:
-            logging.error(e.code)
-            raise fullContactError()
+        if lookup_type == 'email':
+            person_data = lookup_request('person', format, self.api_key, email=lookup_value)
+        elif lookup_type == 'twitter':
+            person_data = lookup_request('person', format, self.api_key, twitter=lookup_value)
+        elif lookup_type == 'phone':
+            person_data = lookup_request('person', format, self.api_key, phone=lookup_value)
+        elif lookup_type == 'facebookUsername':
+            person_data = lookup_request('person', format, self.api_key, facebookUsername=lookup_value)
         else:
-            if method == 'person.json':
-                person_data = load(lookup)
-                logging.info('status code = ' + str(person_data['status']) + ' ' + str(lkup))
-            elif method == 'person.html':
-                person_data = lookup.read().decode('utf-8')  # TODO need logging
-            else:
-                person_data = lookup
-            # logging.info('status code = '+str(person_data['status'])+' '+str(lkup)) #TODO
-            return person_data
+            logging.info('ERROR unknown lookup type: ' + lookup_type)
+            raise fullcontacterError()
+            print 'Unknown lookup type'
 
-    def lookitup(self, lkup_value, lkup_type='email', method='person.json'):
-        return self.lookup_request(method, lkup={lkup_type: lkup_value})
+        logging.info('url created ' + person_data['url'])
+        logging.info(str(lookup_type) + ': ' + str(lookup_value))
+
+        return person_data['lookup']
+
+
+class nameStats(object):
+    '''look up a name, first and/or last name via fullcontact's free name api'''
+
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def lookitup(self, fname=None, lname=None, name=None, format='.json'):
+
+        name_data = lookup_request('name/stats', format, self.api_key,
+                    givenName=fname, familyName=lname, name=name)
+
+        logging.info('url created ' + name_data['url'])
+
+        return name_data['lookup']

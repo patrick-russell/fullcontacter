@@ -60,6 +60,11 @@ Usage Examples
     if __name__ == "__main__":
         main()
 
+Code
+----
+
+Code is hosted on github here: `Github Repository`_
+
 TODO
 ----
 
@@ -84,3 +89,4 @@ See `LICENSE`_ for details.
 .. _Name API docs: http://www.fullcontact.com/docs/?category=person
 .. _Person API docs: http://www.fullcontact.com/docs/?category=name
 .. _LICENSE: https://github.com/patrick-russell/fullcontacter/blob/master/LICENSE.md
+.. _Github Repository: https://github.com/patrick-russell/fullcontacter

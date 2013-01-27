@@ -24,7 +24,7 @@ class personLookup(object):
     def __init__(self, api_key):
         self.api_key = api_key
 
-    def lookitup(self, lookup_type, lookup_value, format='.json'):
+    def lookitup(self, lookup_value, lookup_type, format='.json'):
         '''
           Valid lookup types are email,twitter,phone,facebookUsername
           Phone numbers should be formatted +country code area code number

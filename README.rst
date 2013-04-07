@@ -68,6 +68,9 @@ Code is hosted on github here: `Github Repository`_
 TODO
 ----
 
+Webhook parameter or property
+API key in env var option
+logging config
 support vcard
 Test coverage.
 Implement a better API and include more of the lookup options, including account status.

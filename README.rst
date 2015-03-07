@@ -53,7 +53,7 @@ Usage Examples
         person_twitter = fc_person.lookitup('patrickrm101', 'twitter')
 
         # look up a person via email
-        person_email = fc_person.lookitup('prussell@gmail.com')
+        person_email = fc_person.lookitup('prussell@gmail.com', 'email')
 
         return name, person_twitter, person_email
 
